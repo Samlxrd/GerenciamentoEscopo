@@ -138,8 +138,14 @@ def gerenciar_escopo(tokens):
         # Se está lendo um identificador, será uma atribuição
         elif tokens[i]['token'] == 'tk_identificador':
             
-            # Busca o identificador no escopo atual
-            valor = busca_no_escopo(pilha[-1], tokens[i]['lexema'])
+            # Verifica se o identificador já foi declarado
+            for k in range(len(pilha)-1, -1, -1):
+                valor = busca_no_escopo(pilha[k], tokens[i]['lexema'])
+
+                if valor:
+                    declarado = True
+                    escopo = k
+                    break
 
             # Se o identificador não foi encontrado no escopo atual
             if not valor:
@@ -175,8 +181,8 @@ def gerenciar_escopo(tokens):
                 if tokens[i]['token'] != 'tk_identificador':
 
                     # Verifica se os tipos são iguais e realiza a atribuição
-                    if pilha[-1][tokens[j]['lexema']]['tipo'] == tokens[i]['token'][3:]:
-                        pilha[-1].update({tokens[j]['lexema']:{'valor':tokens[i]['lexema']}})
+                    if pilha[escopo][tokens[j]['lexema']]['tipo'] == tokens[i]['token'][3:]:
+                        pilha[escopo].update({tokens[j]['lexema']:{'valor':tokens[i]['lexema']}})
 
                     else:
                         print(f"Erro 1: Tipos nao compativeis - falha ao atribuir {pilha[-1][tokens[j]['lexema']]['tipo']} e {tokens[i]['token'][3:]}.")
@@ -347,7 +353,6 @@ def next_token(file):
                 if char.isalnum():
                     lexema += char
                     state = 10
-
 
             case 10:
                 if char.isalnum():
