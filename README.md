@@ -7,7 +7,7 @@ O programa consiste em gerenciar o escopo e mostrar os valores de cada PRINT de 
 Linguagem utilizada: Python 3.10.5
 
 * Instruções de uso:
-   1. Alterar o caminho do arquivo de teste na função main:
+   1. Alterar o caminho e nome do arquivo de teste na função main (caso necessário):
 
       ![image](https://github.com/Samlxrd/GerenciamentoEscopo/assets/66272683/55669218-6ff4-4d03-9dee-e0841fb8c625)<br/>
 
